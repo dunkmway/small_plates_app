@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign-Up</title>
+
+  <link rel="stylesheet" href="styles/_site-wide.css">
+  <link rel="stylesheet" href="styles/sign-up.css">
+
+  <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-firestore.js"></script>
+
+  <script src="scripts/_firebase.js" defer></script>
+  <script src="scripts/Dialog.js" defer></script>
+  <script src="scripts/sign-up.js" defer></script>
+  
+</head>
+<body>
+  <main>
+    <section>
+      <h1>Get Started!</h1>
+      <form id="sign-up">
+        <label for="firstName">First Name</label>
+        <input type="text" name="sign-up" id="firstName" required>
+        <label for="lastName">Last Name</label>
+        <input type="text" name="sign-up" id="lastName" required>
+        <label for="email">Email</label>
+        <input type="email" name="sign-up" id="email" required>
+        <label for="password">Password</label>
+        <input type="password" name="sign-up" id="password" required>
+        <label for="confirm_password">Confirm Password</label>
+        <input type="password" name="sign-up" id="confirm_password" required>
+        <button type="submit">Sign Up</button>
+        <p id="error"></p>
+      </form>
+    </section>
+  </main>
+</body>
+</html>

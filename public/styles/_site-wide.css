@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css?family=Work+Sans:300,600');
+
+:root {
+  --light-blue: #8ecae6;
+  --medium-blue: #219ebc;
+  --dark-blue: #023047;
+  --yellow: #ffb703;
+  --orange: #fb8500;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "proxima-nova", sans-serif;
+  font-size: 1rem;
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+input {
+  display: block;
+  font-size: 1em;
+  padding: 0.5em 1em;
+  border-radius: 0.5em;
+  border: 1px solid black;
+}

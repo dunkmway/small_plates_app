@@ -1,0 +1,59 @@
+@import url('https://fonts.googleapis.com/css?family=Work+Sans:300,600');
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "proxima-nova", sans-serif;
+  font-size: 1rem;
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+#hero {
+  background-image: url(../images/Mormon.jpg);
+  background-position: 70%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  min-height: 100svh;
+  color: white;
+  text-align: center;
+}
+
+#hero h1 {
+  font-size: 3em;
+}
+
+#hero button {
+  font-size: 2em;
+  padding: .5em 2em;
+  border: none;
+  border-radius: .5em;
+  color: white;
+  background-color: var(--yellow);
+}
+
+#hero button:hover {
+  transform: scale(1.1);
+}
+
+#about {
+  padding: 2em 1em;
+  background-color: var(--light-blue);
+  color: white;
+}
+
+#about h2 {
+  font-size: 2em;
+  text-align: center;
+}
+
