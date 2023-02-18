@@ -6,6 +6,8 @@ document.getElementById('sign-up').addEventListener('submit', async (event) => {
   const registrationData = Object.fromEntries(new FormData(target).entries())
   const errorMsg = document.getElementById('error');
 
+  Dialog.alert(JSON.stringify(registrationData, null, 2));
+
   errorMsg.innerText = '';
   errorMsg.hidden = true;
 
@@ -17,7 +19,6 @@ document.getElementById('sign-up').addEventListener('submit', async (event) => {
     return;
   }
 
-  Dialog.alert(JSON.stringify(registrationData, null, 2));
   isLoading(false);
   return;
 
