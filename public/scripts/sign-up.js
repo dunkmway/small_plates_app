@@ -6,8 +6,6 @@ document.getElementById('sign-up').addEventListener('submit', async (event) => {
   const registrationData = Object.fromEntries(new FormData(target).entries())
   const errorMsg = document.getElementById('error');
 
-  Dialog.alert(JSON.stringify(registrationData, null, 2));
-
   errorMsg.innerText = '';
   errorMsg.hidden = true;
 
@@ -20,7 +18,6 @@ document.getElementById('sign-up').addEventListener('submit', async (event) => {
   }
 
   isLoading(false);
-  return;
 
   //create the user account
   firebase.auth().createUserWithEmailAndPassword(registrationData.email.trim().toLowerCase(), registrationData.password)
@@ -28,26 +25,25 @@ document.getElementById('sign-up').addEventListener('submit', async (event) => {
     // Signed in 
     const user = userCredential.user;
 
+    console.log(user);
+
     //update user profile
     user.updateProfile({
       displayName: registrationData.firstName.trim() + ' ' + registrationData.lastName.trim()
     })
 
     //set up their user profile
-    await firebase.firestore().collection('Users').doc(user.uid).set({
+    await firebase.firestore().collection('users').doc(user.uid).set({
       firstName: registrationData.firstName.trim(),
       lastName: registrationData.lastName.trim(),
       email: registrationData.email.trim().toLowerCase(),
       createdAt: firebase.firestore.FieldValue.serverTimestamp()
     })
 
-    // refresh the user token
-    await user.getIdTokenResult(true);
-
     target.reset();
 
     isLoading(false);
-    window.location.href = location.origin + `/${user.uid}`;
+    window.location.href = location.origin + `/home/${user.uid}`;
   })
   .catch((error) => {
     var errorCode = error.code;

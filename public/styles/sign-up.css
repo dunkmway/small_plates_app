@@ -63,6 +63,7 @@ button {
   border: none;
   border-radius: 0.5em;
   background-color: var(--yellow);
+  color: white;
 }
 
 button:hover {
