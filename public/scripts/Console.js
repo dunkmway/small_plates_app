@@ -83,6 +83,7 @@ class Console {
 
     const input = document.createElement('input');
     input.setAttribute('type', 'text');
+    input.setAttribute('spellcheck', "false");
     input.addEventListener('keypress', (e) => {
       if (e.key == 'Enter') {
         this.log(eval(input.value), false);

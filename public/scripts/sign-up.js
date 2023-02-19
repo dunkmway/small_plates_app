@@ -1,3 +1,5 @@
+_console.log('this is a test of the console!');
+
 //form submission
 document.getElementById('sign-up').addEventListener('submit', async (event) => {
   isLoading(true);
