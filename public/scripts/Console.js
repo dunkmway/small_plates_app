@@ -2,6 +2,8 @@ class Console {
   constructor() {
     this.isOpen = localStorage.getItem('__console__isOpen') === 'true';
     this.entries = [];
+    this.inputHistory = [];
+    this.currentHistory = -1;
     this.isLoaded = false;
 
     this.stylesheet = this._createStylesheet();
@@ -86,10 +88,31 @@ class Console {
     input.setAttribute('spellcheck', "false");
     input.addEventListener('keypress', (e) => {
       if (e.key == 'Enter') {
+        this._createEntry(input.value, null, null, null, 'input');
         this.log(eval(input.value), false);
+
+        this.inputHistory.push(input.value);
+        this.currentHistory = this.inputHistory.length;
         input.value = '';
       }
     })
+    input.addEventListener('keydown', (e) => {
+      if (e.key == 'ArrowUp') {
+        if (this.currentHistory === -1) return;
+        this.currentHistory--;
+        if (this.currentHistory < 0) this.currentHistory = 0;
+        input.value = this.inputHistory[this.currentHistory];
+      }
+
+      if (e.key == 'ArrowDown') {
+        if (this.currentHistory === -1) return;
+        this.currentHistory++;
+        if (this.currentHistory > this.inputHistory.length) this.currentHistory = this.inputHistory.length;
+        input.value = this.inputHistory[this.currentHistory] ?? '';
+      }
+    })
+
+    
 
     wrapper.appendChild(entries);
     wrapper.appendChild(input);
@@ -233,6 +256,10 @@ const _console_css = `
 
 #__console__ .entry.nullish .message {
   color: #A6A6A6;
+}
+
+#__console__ .entry.input .message {
+  color: #5E9FDA;
 }
 
 #__console__ .entry .file {

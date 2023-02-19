@@ -6,6 +6,7 @@ main {
   justify-content: center;
   align-items: center;
   background-color: var(--light-blue);
+  padding: 2em;
 }
 
 main.loading::before {
@@ -44,6 +45,7 @@ section {
   padding: 2em;
   border-radius: 0.5em;
   color: black;
+  max-width: 500px;
 }
 
 section h1 {
@@ -53,6 +55,7 @@ section h1 {
 
 input {
   margin-bottom: 1em;
+  width: 100%;
 }
 
 button {
@@ -68,4 +71,8 @@ button {
 
 button:hover {
   transform: scale(1.05);
+}
+
+#error {
+  color: red;
 }

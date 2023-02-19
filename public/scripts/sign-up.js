@@ -1,5 +1,3 @@
-_console.log('this is a test of the console!');
-
 //form submission
 document.getElementById('sign-up').addEventListener('submit', async (event) => {
   isLoading(true);
@@ -18,8 +16,6 @@ document.getElementById('sign-up').addEventListener('submit', async (event) => {
     isLoading(false);
     return;
   }
-
-  isLoading(false);
 
   //create the user account
   firebase.auth().createUserWithEmailAndPassword(registrationData.email.trim().toLowerCase(), registrationData.password)
