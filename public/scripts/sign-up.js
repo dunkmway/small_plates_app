@@ -41,7 +41,7 @@ document.getElementById('sign-up').addEventListener('submit', async (event) => {
     target.reset();
 
     isLoading(false);
-    window.location.href = location.origin + `/home/${user.uid}`;
+    window.location.href = getCurrentOrigin() + `/home/${user.uid}`;
   })
   .catch((error) => {
     var errorCode = error.code;

@@ -48,7 +48,7 @@ class Console {
       message = JSON.stringify(message, null, 2);
     }
 
-    this._createEntry(message, stack[0], stack[1], stack[2], type);
+    this._createEntry(message, stack?.[0], stack?.[1], stack?.[2], type);
   }
 
 

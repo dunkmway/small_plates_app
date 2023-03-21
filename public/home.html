@@ -13,11 +13,13 @@
   <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-firestore.js"></script>
 
   <script src="../scripts/Console.js"></script>
+  <script src="../scripts/_helper.js"></script>
   <script src="../scripts/_firebase.js"></script>
+  <script src="../scripts/_firebaseAuth.js"></script>
   <script src="../scripts/home.js" defer></script>
 </head>
-<body>
-  <button>New Entry</button>
+<body onload="InitializeAuth()">
+  <a href="../entry.html"><button>New Entry</button></a>
   <button>Share</button>
   <button onclick="signOut()">Sign Out</button>
 </body>

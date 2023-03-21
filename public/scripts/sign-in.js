@@ -13,7 +13,7 @@ document.getElementById('sign-in').addEventListener('submit', async (event) => {
   .then((userCredential) => {
     // Signed in
     const user = userCredential.user;
-    window.location.href = location.origin + `/home/${user.uid}`;
+    window.location.href = getCurrentOrigin() + `/home/${user.uid}`;
   })
   .catch((error) => {
     var errorCode = error.code;
