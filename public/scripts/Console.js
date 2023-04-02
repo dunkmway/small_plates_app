@@ -9,6 +9,8 @@ class Console {
     this.stylesheet = this._createStylesheet();
     this.wrapper = this._createWrapper();
     
+    console.log('constructing Console')
+
     addEventListener('error', (e) => this.errorHandler(e));
     addEventListener('keypress', (e) => this.keypressHandler(e));
     addEventListener('DOMContentLoaded', () => this._DOMContentLoadedHandler());
@@ -19,6 +21,7 @@ class Console {
   }
 
   keypressHandler(keyEvent) {
+    console.log(keyEvent)
     if (keyEvent.ctrlKey && keyEvent.metaKey && keyEvent.key == 'c') {
       this.toggle();
     }

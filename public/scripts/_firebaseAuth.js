@@ -5,9 +5,9 @@ let _FIREBASE_AUTH_UNSUBSCRIBE = null;
 
 function InitializeAuth(
   authenticatedCallback = () => {},
-  args1,
+  args1 = [],
   not_authenticatedCallback = () => {},
-  args2
+  args2 = []
 ) {
   // clean up any listeners set up before this
   CleanUpAuth();

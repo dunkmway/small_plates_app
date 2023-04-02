@@ -76,7 +76,7 @@ let USER = null;
 let ENTRY_DOC = null;
 
 async function main() {
-  _console.log("In main")
+  _console.log("In main", false)
   // get the Entry Doc
   ENTRY_DOC = await getEntryDoc();
 
@@ -85,7 +85,7 @@ async function main() {
 }
 
 function authenticatedCallback(user) {
-  _console.log('Auth callback called')
+  _console.log('Auth callback called', false)
   USER = user;
   // we really only need the user if we are creating a new entry
   // firestore rules should stop unauthorized access to entries not owned by user
@@ -140,6 +140,7 @@ async function saveEntry(e) {
     }
     Dialog.toastMessage('Entry Saved!')
   } catch (error) {
+    console.log(error)
     _console.log(error, false);
     Dialog.toastError('We are having an issue saving this entry.');
   }
