@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Connect</title>
+
+  <link rel="stylesheet" href="styles/connect.css">
+
+  <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-firestore.js"></script>
+
+  <script src="scripts/Console.js"></script>
+  <script src="scripts/Time.js"></script>
+  <script src="scripts/Timer.js"></script>
+  <script src="scripts/Dialog.js"></script>
+  <script src="scripts/_helper.js"></script>
+  <script src="scripts/_firebase.js"></script>
+  <script src="scripts/_firebaseAuth.js"></script>
+  <script src="scripts/connect.js" defer></script>
+</head>
+<body onload="main()">
+  <div id="choice">
+    <div class="back" onclick="goHome()">Home</div>
+    <button id="connector_btn" onclick="changeView('connecter')">
+      <h1>Generate a code</h1>
+      <p>Get a rolling code that can be shared with a friend.</p>
+    </button>
+    <button id="connectee_btn" onclick="changeView('connectee')">
+      <h1>Enter a code</h1>
+      <p>Enter a code that was given by a friend.</p>
+    </button>
+  </div>
+  <div id="connecter" class="hide">
+    <div class="back" onclick="changeView('choice')">back</div>
+    <div class="code">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <p class="timer"></p>
+  </div>
+  <div id="connectee" class="hide">
+    <div class="back" onclick="changeView('choice')">back</div>
+    <div class="code">
+      <span contenteditable onkeyup="keyupCode(event)"></span>
+      <span contenteditable onkeyup="keyupCode(event)"></span>
+      <span contenteditable onkeyup="keyupCode(event)"></span>
+      <span contenteditable onkeyup="keyupCode(event)"></span>
+      <span contenteditable onkeyup="keyupCode(event)"></span>
+      <span contenteditable onkeyup="keyupCode(event)"></span>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

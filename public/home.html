@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Home</title>
 
+  <link rel="stylesheet" href="../styles/_site-wide.css">
   <link rel="stylesheet" href="../styles/home.css">
 
   <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
@@ -13,14 +14,21 @@
   <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-firestore.js"></script>
 
   <script src="../scripts/Console.js"></script>
+  <script src="../scripts/Time.js"></script>
   <script src="../scripts/_helper.js"></script>
   <script src="../scripts/_firebase.js"></script>
   <script src="../scripts/_firebaseAuth.js"></script>
   <script src="../scripts/home.js" defer></script>
 </head>
-<body onload="InitializeAuth()">
+<body onload="main()">
   <a href="../entry.html"><button>New Entry</button></a>
-  <button>Share</button>
+  <a href="../connect.html"><button>Connect</button></a>
   <button onclick="signOut()">Sign Out</button>
+
+  <h1>Home</h1>
+  <main>
+    <h2>My Entries</h2>
+    <div id="entryList"></div>
+  </main>
 </body>
 </html>

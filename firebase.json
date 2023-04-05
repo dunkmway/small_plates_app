@@ -15,7 +15,8 @@
         "source": "/home/**",
         "destination": "/home.html"
       }
-    ]
+    ],
+    "cleanUrls": true
   },
   "emulators": {
     "auth": {

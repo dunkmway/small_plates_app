@@ -6,3 +6,7 @@ function getCurrentOrigin() {
     return location.origin;
   }
 }
+
+function goHome() {
+  window.location.href = `${getCurrentOrigin()}/home/${firebase.auth().currentUser.uid}`
+}

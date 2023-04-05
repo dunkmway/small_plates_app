@@ -50,7 +50,8 @@ body {
 
 #about {
   padding: 2em 4em;
-  background-color: var(--light-blue);
+  /* background-color: var(--light-blue); */
+  background-color: var(--primary-background);
   color: white;
 }
 

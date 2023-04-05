@@ -6,6 +6,11 @@
   --dark-blue: #023047;
   --yellow: #ffb703;
   --orange: #fb8500;
+
+  --primary-background: #C5C9EA;
+  --secondary-background: #F1F5FD;
+  --action-color: #27284F;
+  --text-color: black;
 }
 
 *, *::before, *::after {
@@ -22,6 +27,7 @@ body {
   overflow-x: hidden;
   margin: 0;
   padding: 0;
+  background-color: var(--primary-background);
 }
 
 input {
@@ -30,5 +36,9 @@ input {
   padding: 0.5em 1em;
   border-radius: 0.5em;
   border: none;
-  background-color: rgb(235, 235, 235);
+  background-color: white;
+}
+
+a {
+  color: var(--action-color);
 }

@@ -1,0 +1,24 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+.entry {
+ display: block;
+ border: 1px solid black;
+ border-radius: 5px;
+ margin-bottom: 1rem;
+ padding: 0.5em 1em;
+ text-decoration: none;
+ color: black;
+}
+
+.entry > div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.entry > div > p {
+  padding: 0;
+  margin: 0;
+}
