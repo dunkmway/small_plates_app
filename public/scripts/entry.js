@@ -12,6 +12,9 @@ let FRIEND_LIST = null;
 
 async function main() {
   console.log("In main")
+  // initialize dropdown
+  $('#friends').dropdown();
+
   // start auth listener
   InitializeAuth(authenticatedCallback, [], () => {}, []);
 
@@ -44,7 +47,7 @@ function authenticatedCallback(user) {
     })
 
     if (ENTRY_DOC) {
-      setFriendSelectedOptions(ENTRY_DOC.data().friends);
+      setFriendSelectedOptions(ENTRY_DOC.data().friends ?? []);
     }
   })
 }
@@ -56,9 +59,13 @@ function not_authenticatedCallback() {
 
 function updateFormDisabled(entry, user) {
   if (entry && user) {
-    document.getElementById('title').disabled = entry.data().user != user.uid;
-    document.getElementById('content').disabled = entry.data().user != user.uid;
-    document.getElementById('friends').disabled = entry.data().user != user.uid;
+    if (entry.data().user != user.uid) {
+      document.getElementById('title').disabled = true;
+      document.getElementById('content').disabled = true;
+      document.getElementById('friendGroup').style.display = 'none';
+      document.getElementById('save').style.display = 'none';
+      document.getElementById('delete').style.display = 'none';
+    }
   }
 }
 
@@ -110,7 +117,7 @@ async function saveEntry(e) {
       formData.createdAt = firebase.firestore.FieldValue.serverTimestamp();
       const newRef = DB.collection('entries').doc();
       await newRef.set(formData);
-      window.location = getCurrentOrigin() + `/entry?entry=${newRef.id}`
+      ENTRY_DOC = await newRef.get();
     }
     Dialog.toastMessage('Entry Saved!')
   } catch (error) {
@@ -120,9 +127,17 @@ async function saveEntry(e) {
 
 }
 
-function cancelEntry() {
-  // close the page and go back to the home page
-  location.href = getCurrentOrigin() + `/home/${USER.uid}`;
+async function deleteEntry() {
+  if (ENTRY_DOC) {
+    const confirmation = await Dialog.confirm('Are you sure you want to delete this entry?');
+    if (confirmation) {
+      await ENTRY_DOC.ref.delete();
+    } else {
+      return;
+    }
+  }
+
+  goHome()
 }
 
 async function getFriendList(userUID) {
@@ -168,6 +183,7 @@ function getFriendSelectedOptions() {
 
 function setFriendSelectedOptions(friendIDs) {
   friendIDs.forEach(id => {
-    document.querySelector(`#friends > option[value="${id}"]`).selected = true;
+    const option = document.querySelector(`#friends > option[value="${id}"]`)
+    option && (option.selected = true);
   })
 }

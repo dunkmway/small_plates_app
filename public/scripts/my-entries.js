@@ -2,22 +2,17 @@ const params = new Proxy(new URLSearchParams(window.location.search), {
   get: (searchParams, prop) => searchParams.get(prop),
 });
 
+let last_doc = null;
+
 const DB = firebase.firestore();
 let USER = null;
 
 async function main() {
-  console.log("In main")
-  
   // start auth listener
   InitializeAuth(authenticatedCallback, [], () => {}, []);
-
-  // user entires rendered after the auth callback ahs run
-
-  // get shared entries
 }
 
 function authenticatedCallback(user) {
-  console.log('Auth callback called')
   USER = user;
   // firestore rules should stop unauthorized access to entries not owned by user
   // _console.log(user)
@@ -25,20 +20,6 @@ function authenticatedCallback(user) {
   getListOfEntries(user.uid)
   .then(entries => {
     entries.forEach(entryDoc => renderEntryElement(entryDoc, null, 'entryList'));
-  })
-
-  getListOfFriendEntries(user.uid)
-  .then(entries => {
-    entries.forEach(entryDoc => {
-      DB.collection('users').doc(entryDoc.data().user).get()
-      .then(userDoc => {
-        renderEntryElement(
-          entryDoc,
-          userDoc.data().firstName + ' ' + userDoc.data().lastName,
-          'friendEntryList'
-        )
-      })
-    });
   })
 }
 
@@ -49,28 +30,30 @@ function not_authenticatedCallback() {
 
 async function getListOfEntries(userUID) {
   try {
-    return (await DB.collection('entries')
-    .where('user', '==', userUID)
-    .orderBy('createdAt', 'desc')
-    .limit(10)
-    .get()).docs;
+    let docs = [];
+    if (last_doc) {
+      docs = (await DB.collection('entries')
+      .where('user', '==', userUID)
+      .orderBy('createdAt', 'desc')
+      .startAfter(last_doc)
+      .limit(10)
+      .get()).docs;
+    } else {
+      docs = (await DB.collection('entries')
+      .where('user', '==', userUID)
+      .orderBy('createdAt', 'desc')
+      .limit(10)
+      .get()).docs;
+    }
+
+    if (docs.length > 0) {
+      last_doc = docs[docs.length - 1];
+    }
+
+    return docs;
   }
   catch(error) {
     console.log(error);
-    return [];
-  }
-}
-
-async function getListOfFriendEntries(userUID) {
-  try {
-    return (await DB.collection('entries')
-    .where('friends', 'array-contains', userUID)
-    .orderBy('createdAt', 'desc')
-    .limit(10)
-    .get()).docs;
-  }
-  catch(error) {
-    _console.log(error);
     return [];
   }
 }
@@ -93,4 +76,9 @@ function renderEntryElement(entryDoc, author, parent) {
   `;
 
   wrapper.appendChild(entry);
+}
+
+async function loadMore() {
+  const entryDocs = await getListOfEntries(USER.uid);
+  entryDocs.forEach(doc => renderEntryElement(doc, null, 'entryList'))
 }

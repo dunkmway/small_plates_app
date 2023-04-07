@@ -4,10 +4,14 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Home</title>
+  <title>Friend's Entries</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.js"></script>
 
   <link rel="stylesheet" href="../styles/_site-wide.css">
-  <link rel="stylesheet" href="../styles/home.css">
+  <link rel="stylesheet" href="../styles/friends-entries.css">
 
   <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-auth.js"></script>
@@ -18,26 +22,13 @@
   <script src="../scripts/_helper.js"></script>
   <script src="../scripts/_firebase.js"></script>
   <script src="../scripts/_firebaseAuth.js"></script>
-  <script src="../scripts/home.js" defer></script>
+  <script src="../scripts/friends-entries.js" defer></script>
 </head>
 <body onload="main()">
-  <button id="sign_out" onclick="signOut()">Sign Out</button>
+  <button id="home" onclick="goHome()">Home</button>
   <main>
-    <a href="../entry.html"><button>New Entry</button></a>
-    <a href="../connect.html"><button>Connect</button></a>
-    <div class="heading-wrapper">
-      <h2>My Entries</h2>
-      <a href="../my-entries.html"><button>Show All</button></a>
-    </div>
-    <div id="entryList"></div>
-    <div class="heading-wrapper">
-      <h2>My Friends' Entries</h2>
-      <a href="../friends-entries.html"><button>Show All</button></a>
-    </div>
-    <div id="friendEntryList"></div>
+    <h2>Friend's Entries</h2>
+    <div id="accordions"></div>
   </main>
 </body>
-<script>
-
-</script>
 </html>

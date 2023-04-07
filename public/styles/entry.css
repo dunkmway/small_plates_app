@@ -14,12 +14,11 @@ label, input, textarea {
   display: block;
 }
 
-input, textarea, select {
-  margin-bottom: 1em;
+button {
+  margin-top: 2em;
 }
 
 input, textarea {
-  margin-bottom: 2em;
   width: 100%;
   border: none;
   border-radius: 16px;
@@ -30,8 +29,9 @@ label {
   margin-left: 16px;
 }
 
-input {
+input#title {
   font-size: 2rem;
+  margin-bottom: 1em;
 }
 
 input:focus,
@@ -43,6 +43,7 @@ textarea {
   font-size: 1rem;
   min-height: 20em;
   resize: vertical;
+  margin-bottom: 2em;
 }
 
 form {

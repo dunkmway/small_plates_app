@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Home</title>
+  <title>My Entries</title>
 
   <link rel="stylesheet" href="../styles/_site-wide.css">
-  <link rel="stylesheet" href="../styles/home.css">
+  <link rel="stylesheet" href="../styles/my-entries.css">
 
   <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-auth.js"></script>
@@ -18,26 +18,14 @@
   <script src="../scripts/_helper.js"></script>
   <script src="../scripts/_firebase.js"></script>
   <script src="../scripts/_firebaseAuth.js"></script>
-  <script src="../scripts/home.js" defer></script>
+  <script src="../scripts/my-entries.js" defer></script>
 </head>
 <body onload="main()">
-  <button id="sign_out" onclick="signOut()">Sign Out</button>
+  <button id="home" onclick="goHome()">Home</button>
   <main>
-    <a href="../entry.html"><button>New Entry</button></a>
-    <a href="../connect.html"><button>Connect</button></a>
-    <div class="heading-wrapper">
-      <h2>My Entries</h2>
-      <a href="../my-entries.html"><button>Show All</button></a>
-    </div>
+    <h2>My Entries</h2>
     <div id="entryList"></div>
-    <div class="heading-wrapper">
-      <h2>My Friends' Entries</h2>
-      <a href="../friends-entries.html"><button>Show All</button></a>
-    </div>
-    <div id="friendEntryList"></div>
+    <button id="load_more" onclick="loadMore()">Load More</button>
   </main>
 </body>
-<script>
-
-</script>
 </html>

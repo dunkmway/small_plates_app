@@ -6,11 +6,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Entry</title>
 
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.js"></script>
+
   <link rel="stylesheet" href="styles/_site-wide.css">
   <link rel="stylesheet" href="styles/entry.css">
-
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.css">
-  <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.js"></script>
 
   <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-auth.js"></script>
@@ -30,10 +31,13 @@
     <input type="text" name="title" id="title">
     <label for="text">Entry</label>
     <textarea name="content" id="content"></textarea>
-    <label for="friends">Share with</label>
-    <select name="friends" id="friends" multiple="" class="ui fluid search dropdown"></select>
-    <button type="submit">Save</button>
-    <button type="button" onclick="cancelEntry()">Cancel</button>
+    <div id="friendGroup">
+      <label for="friends">Share with</label>
+      <select name="friends" id="friends" multiple="" class="ui fluid search dropdown"></select>
+    </div>
+    <button type="submit" id="save">Save</button>
+    <button type="button" onclick="history.back()">Close</button>
+    <button type="button" id="delete" onclick="history.back()">Delete</button>
   </form>
 </body>
 </html>
