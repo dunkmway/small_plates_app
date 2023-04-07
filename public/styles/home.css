@@ -2,23 +2,64 @@
   box-sizing: border-box;
 }
 
-.entry {
+body {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  overflow: hidden;
+  padding: 6em 4em;
+}
+
+#sign_out {
+  position: absolute;
+  top: 1em;
+  right: 1em;
+}
+
+main {
+  flex: 1;
+  background-color: var(--secondary-background);
+  padding: 2em;
+  overflow-y: auto;
+  border-radius: 2em;
+  height: 100%;
+  margin: 0;
+}
+
+button {
+  border: none;
+  border-radius: 1em;
+  font-size: 1em;
+  background-color: white;
+  color: var(--text-color);
+  padding: 0.5em 1em;
+}
+
+button:hover {
+  background-color: var(--action-color);
+  color: white;
+}
+
+main .entry {
  display: block;
- border: 1px solid black;
+ border: none;
  border-radius: 5px;
  margin-bottom: 1rem;
  padding: 0.5em 1em;
  text-decoration: none;
  color: black;
+ background-color: white;
 }
 
-.entry > div {
+main .entry > div {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
 
-.entry > div > p {
+main .entry > div > p {
   padding: 0;
   margin: 0;
 }

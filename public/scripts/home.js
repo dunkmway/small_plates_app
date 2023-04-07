@@ -11,10 +11,7 @@ async function main() {
   // start auth listener
   InitializeAuth(authenticatedCallback, [], () => {}, []);
 
-  // get the user entries
-  const userFromURL = window.location.pathname.split('/')[2];
-  const entries = await getListOfEntries(userFromURL);
-  entries.forEach(entryDoc => renderEntryElement(entryDoc));
+  // user entires rendered after the auth callback ahs run
 
   // get shared entries
 }
@@ -23,6 +20,17 @@ function authenticatedCallback(user) {
   console.log('Auth callback called')
   USER = user;
   // firestore rules should stop unauthorized access to entries not owned by user
+  // _console.log(user)
+
+  getListOfEntries(user.uid)
+  .then(entries => {
+    entries.forEach(entryDoc => renderEntryElement(entryDoc, 'entryList'));
+  })
+
+  getListOfFriendEntries(user.uid)
+  .then(entries => {
+    entries.forEach(entryDoc => renderEntryElement(entryDoc, 'entryList'));
+  })
 }
 
 function not_authenticatedCallback() {
@@ -44,8 +52,22 @@ async function getListOfEntries(userUID) {
   }
 }
 
-function renderEntryElement(entryDoc) {
-  const wrapper = document.getElementById('entryList');
+async function getListOfFriendEntries(userUID) {
+  try {
+    return (await DB.collection('entries')
+    .where('friends', 'array-contains', userUID)
+    .orderBy('createdAt', 'desc')
+    .limit(10)
+    .get()).docs;
+  }
+  catch(error) {
+    console.log(error);
+    return [];
+  }
+}
+
+function renderEntryElement(entryDoc, parent) {
+  const wrapper = document.getElementById(parent);
 
   const entryID = entryDoc.id;
   const entryData = entryDoc.data();

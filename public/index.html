@@ -9,12 +9,21 @@
   <link rel="stylesheet" href="styles/_site-wide.css">
   <link rel="stylesheet" href="styles/index.css">
 
+  <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-firestore.js"></script>
+
+  <script src="scripts/_firebase.js"></script>
+  <script src="scripts/_helper.js"></script>
+  <script src="scripts/Console.js"></script>
+
 </head>
 <body>
   <main>
     <section id="hero">
       <h1>Welcome to the small plates app!</h1>
       <a href="sign-up.html"><button>Sign Up</button></a>
+      <button onclick="TA_Login()">REL A 250 TA Login</button>
     </section>
     <section id="about">
       <h2>What are the small plates?</h2>
@@ -30,4 +39,23 @@
     </section>
   </main>
 </body>
+<script>
+  function TA_Login() {
+    firebase.auth().signInWithEmailAndPassword('religion@test.com', 'abc123')
+    .then((userCredential) => {
+      _console.log('sign in');
+      _console.log(userCredential);
+      // Signed in
+      const user = userCredential.user;
+      window.location.href = getCurrentOrigin() + `/home/${user.uid}`;
+    })
+    .catch((error) => {
+      _console.log('error');
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      _console.log(errorCode, errorMessage);
+      _console.log(error);
+    });
+  }
+</script>
 </html>

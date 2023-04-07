@@ -42,6 +42,7 @@ body {
   border-radius: .5em;
   color: white;
   background-color: var(--yellow);
+  margin-bottom: 1em;
 }
 
 #hero button:hover {

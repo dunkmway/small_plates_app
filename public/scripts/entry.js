@@ -8,6 +8,7 @@ const params = new Proxy(new URLSearchParams(window.location.search), {
 const DB = firebase.firestore();
 let USER = null;
 let ENTRY_DOC = null;
+let FRIEND_LIST = null;
 
 async function main() {
   console.log("In main")
@@ -34,6 +35,18 @@ function authenticatedCallback(user) {
 
   // we will now set the access to the form depending on the user
   updateFormDisabled(ENTRY_DOC, USER);
+
+  getFriendList(user.uid)
+  .then(list => {
+    FRIEND_LIST = list;
+    list.forEach(friend => {
+      addFriendOption(friend);
+    })
+
+    if (ENTRY_DOC) {
+      setFriendSelectedOptions(ENTRY_DOC.data().friends);
+    }
+  })
 }
 
 function not_authenticatedCallback() {
@@ -45,6 +58,7 @@ function updateFormDisabled(entry, user) {
   if (entry && user) {
     document.getElementById('title').disabled = entry.data().user != user.uid;
     document.getElementById('content').disabled = entry.data().user != user.uid;
+    document.getElementById('friends').disabled = entry.data().user != user.uid;
   }
 }
 
@@ -81,7 +95,8 @@ async function saveEntry(e) {
 
   const formData = Object.fromEntries(new FormData(form).entries());
   formData.user = USER.uid;
-  console.log(formData);
+  formData.friends = getFriendSelectedOptions();
+  _console.log(formData);
 
   // if we have the document then update it
   // if not then create a new 
@@ -108,4 +123,51 @@ async function saveEntry(e) {
 function cancelEntry() {
   // close the page and go back to the home page
   location.href = getCurrentOrigin() + `/home/${USER.uid}`;
+}
+
+async function getFriendList(userUID) {
+  // get the friends UIDs
+  const friendQuery = await DB
+  .collection('users').doc(userUID)
+  .collection('friends')
+  .get()
+
+  const friendUIDs = friendQuery.docs.map(doc => doc.id);
+
+  // connect to the the person's name
+  const friendList = await Promise.all(friendUIDs.map(uid => {
+    return DB.collection('users').doc(uid).get()
+    .then(userDoc => {
+      return {
+        name: userDoc.data().firstName + ' ' + userDoc.data().lastName,
+        id: userDoc.id
+      }
+    })
+  }))
+
+  friendList.sort((a,b) => {
+    return a.name - b.name;
+  })
+
+  return friendList;
+}
+
+function addFriendOption(friend) {
+  const option = document.createElement('option');
+  option.value = friend.id;
+  option.textContent = friend.name;
+
+  document.getElementById('friends').appendChild(option);
+}
+
+function getFriendSelectedOptions() {
+  return Array.from(document.getElementById('friends').querySelectorAll('option'))
+  .filter(option => option.selected)
+  .map(option => option.value);
+}
+
+function setFriendSelectedOptions(friendIDs) {
+  friendIDs.forEach(id => {
+    document.querySelector(`#friends > option[value="${id}"]`).selected = true;
+  })
 }

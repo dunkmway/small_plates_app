@@ -7,10 +7,15 @@ body {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
+  background-color: var(--primary-background);
 }
 
 label, input, textarea {
   display: block;
+}
+
+input, textarea, select {
+  margin-bottom: 1em;
 }
 
 input, textarea {
@@ -18,6 +23,7 @@ input, textarea {
   width: 100%;
   border: none;
   border-radius: 16px;
+  padding: 8px 16px;
 }
 
 label {
@@ -26,7 +32,6 @@ label {
 
 input {
   font-size: 2rem;
-  padding: 8px 16px;
 }
 
 input:focus,

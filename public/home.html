@@ -18,17 +18,115 @@
   <script src="../scripts/_helper.js"></script>
   <script src="../scripts/_firebase.js"></script>
   <script src="../scripts/_firebaseAuth.js"></script>
-  <script src="../scripts/home.js" defer></script>
+  <!-- <script src="../scripts/home.js" defer></script> -->
 </head>
 <body onload="main()">
-  <a href="../entry.html"><button>New Entry</button></a>
-  <a href="../connect.html"><button>Connect</button></a>
-  <button onclick="signOut()">Sign Out</button>
-
-  <h1>Home</h1>
+  <button id="sign_out" onclick="signOut()">Sign Out</button>
   <main>
+    <a href="../entry.html"><button>New Entry</button></a>
+    <a href="../connect.html"><button>Connect</button></a>
     <h2>My Entries</h2>
     <div id="entryList"></div>
+    <h2>My Friends' Entries</h2>
+    <div id="friendEntryList"></div>
   </main>
 </body>
+<script>
+const params = new Proxy(new URLSearchParams(window.location.search), {
+  get: (searchParams, prop) => searchParams.get(prop),
+});
+
+const DB = firebase.firestore();
+let USER = null;
+
+async function main() {
+  console.log("In main")
+  
+  // start auth listener
+  InitializeAuth(authenticatedCallback, [], () => {}, []);
+
+  // user entires rendered after the auth callback ahs run
+
+  // get shared entries
+}
+
+function authenticatedCallback(user) {
+  console.log('Auth callback called')
+  USER = user;
+  // firestore rules should stop unauthorized access to entries not owned by user
+  // _console.log(user)
+
+  getListOfEntries(user.uid)
+  .then(entries => {
+    entries.forEach(entryDoc => renderEntryElement(entryDoc, null, 'entryList'));
+  })
+
+  getListOfFriendEntries(user.uid)
+  .then(entries => {
+    entries.forEach(entryDoc => {
+      DB.collection('users').doc(entryDoc.data().user).get()
+      .then(userDoc => {
+        renderEntryElement(
+          entryDoc,
+          userDoc.data().firstName + ' ' + userDoc.data().lastName,
+          'friendEntryList'
+        )
+      })
+    });
+  })
+}
+
+function not_authenticatedCallback() {
+  // the user is signed out so send them back to the sign in page
+  location.href = getCurrentOrigin() + "/sign-in.html";
+}
+
+async function getListOfEntries(userUID) {
+  try {
+    return (await DB.collection('entries')
+    .where('user', '==', userUID)
+    .orderBy('createdAt', 'desc')
+    .limit(10)
+    .get()).docs;
+  }
+  catch(error) {
+    console.log(error);
+    return [];
+  }
+}
+
+async function getListOfFriendEntries(userUID) {
+  try {
+    return (await DB.collection('entries')
+    .where('friends', 'array-contains', userUID)
+    .orderBy('createdAt', 'desc')
+    .limit(10)
+    .get()).docs;
+  }
+  catch(error) {
+    _console.log(error);
+    return [];
+  }
+}
+
+function renderEntryElement(entryDoc, author, parent) {
+  const wrapper = document.getElementById(parent);
+
+  const entryID = entryDoc.id;
+  const entryData = entryDoc.data();
+  
+  const entry = document.createElement('a');
+  entry.href = `../entry?entry=${entryID}`;
+  entry.id = `entry_${entryID}`;
+  entry.className = 'entry';
+  entry.innerHTML = `
+    <div>
+      <p class="title">${entryData.title}${author ? ' by ' + author: ''}</p>
+      <p class="date">Enscribed at ${new Time(entryData.createdAt.toDate()).toFormat('{MM}/{dd}/{yy} {hh}:{mm} {A}')}</p>
+    </div>
+  `;
+
+  wrapper.appendChild(entry);
+}
+</script>
 </html>
