@@ -9,17 +9,17 @@ class Console {
     this.stylesheet = this._createStylesheet();
     this.wrapper = this._createWrapper();
 
-    addEventListener('error', (e) => this.errorHandler(e));
-    addEventListener('keypress', (e) => this.keypressHandler(e));
-    addEventListener('DOMContentLoaded', () => this._DOMContentLoadedHandler());
+    document.addEventListener('error', (e) => this.errorHandler(e));
+    document.addEventListener('keydown', (e) => this.keydownHandler(e));
+    document.addEventListener('DOMContentLoaded', () => this._DOMContentLoadedHandler());
   }
 
   errorHandler(errorEvent) {
     this._createEntry(errorEvent.message, errorEvent.filename, errorEvent.lineno, errorEvent.colno, 'error');
   }
 
-  keypressHandler(keyEvent) {
-    if (keyEvent.ctrlKey && keyEvent.metaKey && keyEvent.key == 'c') {
+  keydownHandler(keyEvent) {
+    if (keyEvent.ctrlKey && keyEvent.altKey && keyEvent.key == 'c') {
       this.toggle();
     }
   }
@@ -55,11 +55,11 @@ class Console {
 
 
   _parseStackStr(str) {
-    return str.split('\n')                          // split up the stack
-    .map(item => item.split('@')[1])                // remove the logging info
-    .map(item => item.replace(location.origin, '')) // remove the origin
-    .map(item => item.split(':'))                   // split the file, line, and column
-    .slice(1);                                      // remove this stack call
+    return str?.split('\n')                          // split up the stack
+    ?.map(item => item?.split('@')[1])                // remove the logging info
+    ?.map(item => item?.replace(location.origin, '')) // remove the origin
+    ?.map(item => item?.split(':'))                   // split the file, line, and column
+    ?.slice(1);                                      // remove this stack call
   }
 
   _createStylesheet() {
@@ -191,7 +191,7 @@ const _console_css = `
   position: fixed;
   bottom: 0;
   left: 0;
-  height: 200px;
+  height: var(--console-height);
   width: 100vw;
   background-color: #363636;
   overflow-x: hidden;

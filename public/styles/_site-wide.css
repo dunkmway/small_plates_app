@@ -11,6 +11,8 @@
   --secondary-background: #F1F5FD;
   --action-color: #27284F;
   --text-color: black;
+
+  --console-height: 400px;
 }
 
 *, *::before, *::after {
@@ -28,6 +30,10 @@ body {
   margin: 0;
   padding: 0;
   background-color: var(--primary-background);
+}
+
+body:has(#__console__.open) {
+  padding-bottom: var(--console-height);
 }
 
 input {
