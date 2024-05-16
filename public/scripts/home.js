@@ -88,7 +88,7 @@ function renderEntryElement(entryDoc, author, parent) {
   entry.innerHTML = `
     <div>
       <p class="title">${entryData.title}${author ? ' by ' + author: ''}</p>
-      <p class="date">Enscribed at ${new Time(entryData.createdAt.toDate()).toFormat('{MM}/{dd}/{yy} {hh}:{mm} {A}')}</p>
+      <p class="date">Enscribed on ${new Time(entryData.createdAt.toDate()).toFormat('{MM}/{dd}/{yy}')}</p>
     </div>
   `;
 

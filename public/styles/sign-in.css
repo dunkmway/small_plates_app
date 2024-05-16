@@ -2,11 +2,11 @@ main {
   height: 100vh;
   height: 100svh;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
   background-color: var(--primary-background);
-  padding: 2em;
+  padding: 1em;
 }
 
 main.loading::before {
@@ -45,7 +45,8 @@ section {
   padding: 2em;
   border-radius: 0.5em;
   color: black;
-  min-width: 500px;
+  max-width: 500px;
+  flex: 1;
 }
 
 section h1 {

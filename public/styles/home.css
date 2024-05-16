@@ -12,6 +12,12 @@ body {
   padding: 6em 4em;
 }
 
+@media screen and (width <= 800px) {
+  body {
+    padding: 4em 1em 1em;
+  }
+}
+
 #sign_out {
   position: absolute;
   top: 1em;
@@ -46,6 +52,7 @@ button:hover {
 .heading-wrapper {
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
   align-items: center;
   gap: 1em;
 }
@@ -65,9 +72,16 @@ main .entry > div {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  gap: 1em;
 }
 
 main .entry > div > p {
   padding: 0;
   margin: 0;
+}
+
+main .entry > div > p:last-child {
+  padding: 0;
+  margin: 0;
+  text-align: end;
 }

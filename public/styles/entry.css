@@ -10,6 +10,12 @@ body {
   background-color: var(--primary-background);
 }
 
+@media screen and (width <= 800px) {
+  body {
+    padding: 1em 1em;
+  }
+}
+
 label, input, textarea {
   display: block;
 }
@@ -49,7 +55,6 @@ textarea {
 form {
   padding: 2em;
   background-color: var(--secondary-background);
-  width: 80%;
   border-radius: 2em;
 }
 

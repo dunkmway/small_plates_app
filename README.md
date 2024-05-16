@@ -1,6 +1,6 @@
 # Small Plates App
 
-This project was built for one of my religion classes. I definitely went overboard but it got me an A. TLDR; this app allows you to journal and share certain entries with friends and family. To connect with others, it is intentionally manual to prevent a social media like attittude towards sharing.
+This project was built for one of my religion classes. I definitely went overboard but it got me an A. TL;DR this app allows you to journal and share certain entries with friends and family. To connect with others, it is intentionally manual to prevent a social media like attittude towards sharing.
 
 ## Features
 
